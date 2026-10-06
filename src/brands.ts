@@ -102,6 +102,18 @@ export const brands: Brand[] = [
     src: "brands/chanel.png",
     layout: "tall",
   },
+  {
+    id: "lacoste",
+    name: "Lacoste",
+    src: "brands/lacoste.svg",
+    layout: "wide",
+  },
+  {
+    id: "gucci",
+    name: "Gucci",
+    src: "brands/gucci.svg",
+    layout: "wide",
+  },
 ];
 
 export function layoutClass(brand: Brand): string {

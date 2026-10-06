@@ -72,7 +72,8 @@ export const brands: Brand[] = [
   {
     id: "mercedes",
     name: "Mercedes-Benz",
-    src: "/brands/mercedes.svg",
+    src: "/brands/mercedes.png",
+    layout: "tall",
   },
   {
     id: "zara",
@@ -95,7 +96,8 @@ export const brands: Brand[] = [
   {
     id: "chanel",
     name: "Chanel",
-    src: "/brands/chanel.svg",
+    src: "/brands/chanel.png",
+    layout: "tall",
   },
 ];
 

@@ -21,7 +21,7 @@ Apple → Nike → Adidas → Jordan → Fila → Vans → Puma → Louis Vuitto
 ## Logos
 
 - **simple-icons:** Apple, Nike, Adidas, Jordan, Fila, Puma, Zara, Dior  
-- **Ficheiros em `public/brands/`:** Vans, Louis Vuitton, Mercedes-Benz, Loro Piana, Chanel  
+- **Ficheiros em `public/brands/`:** Vans, Louis Vuitton, Mercedes-Benz (PNG), Loro Piana, Chanel (PNG)  
 
 Edita `src/brands.ts` para mudar a ordem.
 

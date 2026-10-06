@@ -82,11 +82,36 @@ body {
 
 .brand-logo--raster {
   object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.stage[data-inverted] .brand-logo--raster,
-.reveal[data-inverted] .brand-logo--raster {
+/* PNG/SVG pretos sobre fundo branco: branco do ficheiro “some” no slide claro */
+.stage:not([data-inverted]) .brand-logo--mono.brand-logo--raster,
+.reveal:not([data-inverted]) .brand-logo--mono.brand-logo--raster {
+  mix-blend-mode: multiply;
+}
+
+/* Slide preto: logo mono passa a branco */
+.stage[data-inverted] .brand-logo--mono.brand-logo--raster,
+.reveal[data-inverted] .brand-logo--mono.brand-logo--raster {
   filter: invert(1);
+  mix-blend-mode: normal;
+}
+
+/* Logos a cores (Loro Piana): fundo branco no slide preto */
+.stage[data-inverted] .logo-slot:has(.brand-logo--color),
+.reveal[data-inverted] .logo-slot:has(.brand-logo--color),
+.stage[data-inverted] .reveal__inner:has(.brand-logo--color),
+.reveal[data-inverted] .reveal__inner:has(.brand-logo--color) {
+  background-color: #ffffff;
+  padding: clamp(0.5rem, 2vw, 1.25rem) clamp(0.75rem, 3vw, 2rem);
+  box-sizing: content-box;
+  border-radius: 2px;
+}
+
+.stage[data-inverted] .brand-logo--color {
+  filter: none;
 }
 
 .reveal__inner--wide {

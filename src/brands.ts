@@ -15,9 +15,11 @@ export type Brand = {
   path?: string;
   svg?: string;
   viewBox?: string;
+  /** Caminho em `public/` (ex.: `brands/vans.png`). */
   src?: string;
-  /** Formato do logo no ecrã. */
   layout?: "default" | "wide" | "tall";
+  /** false = logo a cores (ex.: Loro Piana); não inverter no slide preto. */
+  mono?: boolean;
 };
 
 export const brands: Brand[] = [
@@ -54,7 +56,7 @@ export const brands: Brand[] = [
   {
     id: "vans",
     name: "Vans",
-    src: "/brands/vans.png",
+    src: "brands/vans.png",
     layout: "wide",
   },
   {
@@ -66,13 +68,13 @@ export const brands: Brand[] = [
   {
     id: "louis-vuitton",
     name: "Louis Vuitton",
-    src: "/brands/louis-vuitton.svg",
+    src: "brands/louis-vuitton.svg",
     layout: "tall",
   },
   {
     id: "mercedes",
     name: "Mercedes-Benz",
-    src: "/brands/mercedes.png",
+    src: "brands/mercedes.png",
     layout: "tall",
   },
   {
@@ -84,8 +86,9 @@ export const brands: Brand[] = [
   {
     id: "loropiana",
     name: "Loro Piana",
-    src: "/brands/loropiana.png",
+    src: "brands/loropiana.png",
     layout: "wide",
+    mono: false,
   },
   {
     id: "dior",
@@ -96,7 +99,7 @@ export const brands: Brand[] = [
   {
     id: "chanel",
     name: "Chanel",
-    src: "/brands/chanel.png",
+    src: "brands/chanel.png",
     layout: "tall",
   },
 ];

@@ -1,4 +1,5 @@
 import type { Brand } from "./brands";
+import { brandAssetUrl } from "./brandAsset";
 
 type Props = {
   brand: Brand;
@@ -6,13 +7,17 @@ type Props = {
 };
 
 export function BrandLogo({ brand, className }: Props) {
+  const mono = brand.mono !== false;
+
   if (brand.src) {
     return (
       <img
-        className={`brand-logo brand-logo--raster ${className ?? ""}`.trim()}
-        src={brand.src}
+        className={`brand-logo brand-logo--raster ${mono ? "brand-logo--mono" : "brand-logo--color"} ${className ?? ""}`.trim()}
+        src={brandAssetUrl(brand.src)}
         alt={brand.name}
         draggable={false}
+        loading="eager"
+        decoding="async"
       />
     );
   }
@@ -21,8 +26,9 @@ export function BrandLogo({ brand, className }: Props) {
 
   return (
     <svg
-      className={`brand-logo ${className ?? ""}`.trim()}
+      className={`brand-logo brand-logo--mono ${className ?? ""}`.trim()}
       viewBox={viewBox}
+      preserveAspectRatio="xMidYMid meet"
       aria-label={brand.name}
       role="img"
     >

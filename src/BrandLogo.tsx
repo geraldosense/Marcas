@@ -10,9 +10,11 @@ export function BrandLogo({ brand, className }: Props) {
   const mono = brand.mono !== false;
 
   if (brand.src) {
+    const multiply =
+      brand.multiplyOnLight !== false && brand.src.endsWith(".png");
     return (
       <img
-        className={`brand-logo brand-logo--raster ${mono ? "brand-logo--mono" : "brand-logo--color"} ${className ?? ""}`.trim()}
+        className={`brand-logo brand-logo--raster ${mono ? "brand-logo--mono" : "brand-logo--color"} ${multiply ? "brand-logo--multiply" : ""} ${className ?? ""}`.trim()}
         src={brandAssetUrl(brand.src)}
         alt={brand.name}
         draggable={false}

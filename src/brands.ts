@@ -20,6 +20,8 @@ export type Brand = {
   layout?: "default" | "wide" | "tall";
   /** false = logo a cores (ex.: Loro Piana); não inverter no slide preto. */
   mono?: boolean;
+  /** multiply no slide claro (PNG com fundo branco opaco). */
+  multiplyOnLight?: boolean;
 };
 
 export const brands: Brand[] = [
@@ -76,6 +78,7 @@ export const brands: Brand[] = [
     name: "Mercedes-Benz",
     src: "brands/mercedes.png",
     layout: "tall",
+    multiplyOnLight: false,
   },
   {
     id: "zara",
@@ -101,6 +104,7 @@ export const brands: Brand[] = [
     name: "Chanel",
     src: "brands/chanel.png",
     layout: "tall",
+    multiplyOnLight: false,
   },
   {
     id: "lacoste",

@@ -141,8 +141,9 @@ body {
   max-height: 100%;
 }
 
-.stage:not([data-inverted]) .brand-logo--mono.brand-logo--raster,
-.reveal:not([data-inverted]) .brand-logo--mono.brand-logo--raster {
+/* Só multiply em PNG com fundo branco opaco; transparentes não precisam */
+.stage:not([data-inverted]) .brand-logo--mono.brand-logo--raster.brand-logo--multiply,
+.reveal:not([data-inverted]) .brand-logo--mono.brand-logo--raster.brand-logo--multiply {
   mix-blend-mode: multiply;
 }
 

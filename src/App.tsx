@@ -67,6 +67,11 @@ export function App() {
 
   const chromeTheme = transition ? stageTheme : stableTheme;
 
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    meta?.setAttribute("content", chromeTheme.bg);
+  }, [chromeTheme.bg]);
+
   return (
     <div
       className="app"
@@ -81,10 +86,20 @@ export function App() {
     >
       <div
         className="stage"
+        role="button"
+        tabIndex={0}
+        aria-label="Toque ou clique para a marca seguinte"
         data-inverted={!stageTheme.light ? true : undefined}
         style={{
           backgroundColor: stageTheme.bg,
           color: stageTheme.fg,
+        }}
+        onClick={() => go(1)}
+        onKeyDown={(e) => {
+          if (e.key === " " && e.target === e.currentTarget) {
+            e.preventDefault();
+            go(1);
+          }
         }}
       >
         {transition && !forward && (

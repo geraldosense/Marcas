@@ -286,6 +286,100 @@ body {
   }
 }
 
+.brand-story {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  color: inherit;
+}
+
+.brand-story__col {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: min(17.5rem, 34vw);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 1.6vh, 1rem);
+  font-size: clamp(0.625rem, 1.65vw, 0.8125rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  opacity: 0.58;
+}
+
+.brand-story__col--tl {
+  top: max(1.25rem, env(safe-area-inset-top, 0px));
+  left: max(1.25rem, env(safe-area-inset-left, 0px));
+  text-align: left;
+}
+
+.brand-story__col--br {
+  right: max(1.25rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  text-align: right;
+  align-items: flex-end;
+}
+
+.brand-story__col li {
+  position: relative;
+  padding-left: 0.85rem;
+}
+
+.brand-story__col--tl li::before,
+.brand-story__col--br li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.brand-story__col--br li {
+  padding-left: 0;
+  padding-right: 0.85rem;
+}
+
+.brand-story__col--br li::before {
+  left: auto;
+  right: 0;
+}
+
+.stage[data-inverted] .brand-story__col {
+  opacity: 0.62;
+}
+
+@media (max-width: 480px) {
+  .brand-story__col {
+    max-width: min(11.5rem, 46vw);
+    font-size: clamp(0.5625rem, 2.8vw, 0.6875rem);
+    gap: 0.5rem;
+  }
+
+  .brand-story__col--tl {
+    top: max(0.75rem, env(safe-area-inset-top, 0px));
+    left: max(0.75rem, env(safe-area-inset-left, 0px));
+  }
+
+  .brand-story__col--br {
+    right: max(0.75rem, env(safe-area-inset-right, 0px));
+    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (orientation: landscape) and (max-height: 32rem) {
+  .brand-story__col {
+    max-width: min(14rem, 28vw);
+    opacity: 0.5;
+  }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

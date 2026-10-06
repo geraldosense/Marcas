@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { brands, layoutClass, revealInnerClass } from "./brands";
 import { BrandLogo } from "./BrandLogo";
+import { BrandStory } from "./BrandStory";
 import { themeForIndex } from "./theme";
 
 const DURATION_MS = 900;
@@ -102,6 +103,10 @@ export function App() {
           }
         }}
       >
+        {!transition && (
+          <BrandStory brandId={stableBrand.id} brandName={stableBrand.name} />
+        )}
+
         {transition && !forward && (
           <div className={`${slotClass(stableBrand)} logo-slot--base`}>
             <BrandLogo brand={stableBrand} className="logo" />

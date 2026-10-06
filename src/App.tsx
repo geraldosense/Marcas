@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { brands, layoutClass, revealInnerClass } from "./brands";
 import { BrandLogo } from "./BrandLogo";
-import { themeForIndex } from "./theme";
+import { themeForIndex, type Theme } from "./theme";
 
 const DURATION_MS = 900;
 
@@ -59,18 +59,22 @@ export function App() {
   const fromBrand = transition ? brands[transition.from] : null;
   const fromTheme = transition ? themeForIndex(transition.from) : null;
   const forward = transition?.direction === 1;
-  const stageTheme =
-    transition && forward ? themeForIndex(transition.from) : stableTheme;
 
   const slotClass = (brand: (typeof brands)[number]) =>
     `logo-slot ${layoutClass(brand)}`.trim();
 
-  const chromeTheme = transition ? stageTheme : stableTheme;
+  /** Sempre a cor da marca visível (destino), evita “auréola” da cor anterior. */
+  const chromeTheme = stableTheme;
 
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     meta?.setAttribute("content", chromeTheme.bg);
   }, [chromeTheme.bg]);
+
+  const stageStyle = (theme: Theme) => ({
+    backgroundColor: theme.bg,
+    color: theme.fg,
+  });
 
   return (
     <div
@@ -89,11 +93,8 @@ export function App() {
         role="button"
         tabIndex={0}
         aria-label="Toque ou clique para a marca seguinte"
-        data-inverted={!stageTheme.light ? true : undefined}
-        style={{
-          backgroundColor: stageTheme.bg,
-          color: stageTheme.fg,
-        }}
+        data-inverted={!stableTheme.light ? true : undefined}
+        style={stageStyle(stableTheme)}
         onClick={() => go(1)}
         onKeyDown={(e) => {
           if (e.key === " " && e.target === e.currentTarget) {
@@ -102,56 +103,46 @@ export function App() {
           }
         }}
       >
-        {transition && !forward && (
-          <div className={`${slotClass(stableBrand)} logo-slot--base`}>
-            <BrandLogo brand={stableBrand} className="logo" />
-          </div>
-        )}
-
         {!transition && (
           <div className={slotClass(stableBrand)}>
             <BrandLogo brand={stableBrand} className="logo" />
           </div>
         )}
 
-        {transition && forward && fromBrand && (
-          <div className={`${slotClass(fromBrand)} logo-slot--zoom-out`}>
-            <BrandLogo brand={fromBrand} className="logo" />
-          </div>
-        )}
-
-        {transition && forward && (
-          <div
-            className="reveal reveal--forward"
-            data-inverted={!stableTheme.light ? true : undefined}
-            style={{
-              backgroundColor: stableTheme.bg,
-              color: stableTheme.fg,
-            }}
-          >
-            <div
-              className={revealInnerClass(stableBrand)}
-            >
-              <BrandLogo brand={stableBrand} className="logo logo--incoming" />
+        {transition && forward && fromBrand && fromTheme && (
+          <>
+            <div className={`${slotClass(stableBrand)} logo-slot--enter`}>
+              <BrandLogo brand={stableBrand} className="logo" />
             </div>
-          </div>
+            <div
+              className="depart"
+              data-inverted={!fromTheme.light ? true : undefined}
+              style={stageStyle(fromTheme)}
+            >
+              <div className={`${slotClass(fromBrand)} logo-slot--zoom-out`}>
+                <BrandLogo brand={fromBrand} className="logo" />
+              </div>
+            </div>
+          </>
         )}
 
         {transition && !forward && fromBrand && fromTheme && (
-          <div
-            className="reveal reveal--backward"
-            data-inverted={!fromTheme.light ? true : undefined}
-            style={{
-              backgroundColor: fromTheme.bg,
-              color: fromTheme.fg,
-            }}
-          >
-            <div
-              className={`${revealInnerClass(fromBrand)} reveal__inner--backward`}
-            >
-              <BrandLogo brand={fromBrand} className="logo" />
+          <>
+            <div className={slotClass(stableBrand)}>
+              <BrandLogo brand={stableBrand} className="logo" />
             </div>
-          </div>
+            <div
+              className="depart depart--reverse"
+              data-inverted={!fromTheme.light ? true : undefined}
+              style={stageStyle(fromTheme)}
+            >
+              <div
+                className={`${revealInnerClass(fromBrand)} reveal__inner--backward`}
+              >
+                <BrandLogo brand={fromBrand} className="logo" />
+              </div>
+            </div>
+          </>
         )}
       </div>
 

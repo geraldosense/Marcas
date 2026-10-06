@@ -142,20 +142,20 @@ body {
 }
 
 .stage:not([data-inverted]) .brand-logo--mono.brand-logo--raster,
-.reveal:not([data-inverted]) .brand-logo--mono.brand-logo--raster {
+.depart:not([data-inverted]) .brand-logo--mono.brand-logo--raster {
   mix-blend-mode: multiply;
 }
 
 .stage[data-inverted] .brand-logo--mono.brand-logo--raster,
-.reveal[data-inverted] .brand-logo--mono.brand-logo--raster {
+.depart[data-inverted] .brand-logo--mono.brand-logo--raster {
   filter: invert(1);
   mix-blend-mode: normal;
 }
 
 .stage[data-inverted] .logo-slot:has(.brand-logo--color),
-.reveal[data-inverted] .logo-slot:has(.brand-logo--color),
+.depart[data-inverted] .logo-slot:has(.brand-logo--color),
 .stage[data-inverted] .reveal__inner:has(.brand-logo--color),
-.reveal[data-inverted] .reveal__inner:has(.brand-logo--color) {
+.depart[data-inverted] .reveal__inner:has(.brand-logo--color) {
   background-color: #ffffff;
   padding: clamp(0.5rem, 2vmin, 1.25rem) clamp(0.75rem, 3vmin, 2rem);
   box-sizing: content-box;
@@ -181,29 +181,6 @@ body {
   max-height: calc(100dvh - 2 * var(--stage-pad-y));
 }
 
-.reveal {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  padding: var(--stage-pad-y) var(--stage-pad);
-  transform: scale(0);
-  transform-origin: center center;
-  animation: revealExpand var(--transition-duration, 900ms)
-    cubic-bezier(0.45, 0, 0.15, 1) forwards;
-  will-change: transform;
-}
-
-.reveal--forward {
-  animation-name: revealExpand;
-}
-
-.reveal--backward {
-  transform: scale(1);
-  animation-name: revealShrink;
-}
-
 .reveal__inner {
   width: var(--logo-default);
   height: var(--logo-default);
@@ -211,17 +188,70 @@ body {
   max-height: calc(100dvh - 2 * var(--stage-pad-y));
   display: grid;
   place-items: center;
-  transform: scale(0.35);
-  animation: logoRevealInner var(--transition-duration, 900ms)
-    cubic-bezier(0.45, 0, 0.15, 1) forwards;
 }
 
 .reveal__inner--backward {
-  animation-name: logoShrinkInner;
+  animation: logoShrinkInner var(--transition-duration, 900ms)
+    cubic-bezier(0.45, 0, 0.15, 1) forwards;
 }
 
-.logo--incoming {
-  opacity: 1;
+/* Ecrã de saída: mesma cor da marca anterior, cobre tudo e desvanece */
+.depart {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: departFade var(--transition-duration, 900ms)
+    cubic-bezier(0.45, 0, 0.15, 1) forwards;
+}
+
+.depart--reverse {
+  animation-name: departShrink;
+  transform-origin: center center;
+}
+
+.logo-slot--enter {
+  z-index: 1;
+  animation: logoEnter var(--transition-duration, 900ms)
+    cubic-bezier(0.45, 0, 0.15, 1) forwards;
+}
+
+@keyframes departFade {
+  0% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes departShrink {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    border-radius: 0;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+@keyframes logoEnter {
+  0% {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes logoZoomOut {
@@ -235,42 +265,6 @@ body {
   100% {
     transform: scale(var(--zoom-end));
     opacity: 0;
-  }
-}
-
-@keyframes revealExpand {
-  0% {
-    transform: scale(0);
-    border-radius: 50%;
-  }
-  100% {
-    transform: scale(1);
-    border-radius: 0;
-  }
-}
-
-@keyframes revealShrink {
-  0% {
-    transform: scale(1);
-    border-radius: 0;
-  }
-  100% {
-    transform: scale(0);
-    border-radius: 50%;
-  }
-}
-
-@keyframes logoRevealInner {
-  0% {
-    transform: scale(0.2);
-    opacity: 0;
-  }
-  35% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }
 
@@ -299,7 +293,8 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .logo-slot--zoom-out,
-  .reveal,
+  .logo-slot--enter,
+  .depart,
   .reveal__inner {
     animation-duration: 0.01ms !important;
   }

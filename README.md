@@ -24,3 +24,11 @@ Apple → Nike → Adidas → Jordan → Fila → Vans → Puma → Louis Vuitto
 - **Ficheiros em `public/brands/`:** Vans, Louis Vuitton, Mercedes-Benz, Loro Piana, Chanel  
 
 Edita `src/brands.ts` para mudar a ordem.
+
+## Online
+
+Repositório: [github.com/geraldosense/Marcas](https://github.com/geraldosense/Marcas)
+
+Site (GitHub Pages): **https://geraldosense.github.io/Marcas/**
+
+Ativa em **Settings → Pages → Build and deployment → GitHub Actions** se ainda não estiver ativo. Cada push em `main` republica o site.
